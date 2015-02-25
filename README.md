@@ -8,14 +8,12 @@ from a .csv file.
 The user has the following options:
 
 ```
-**
-1. Get reviews for a movie
-2. Review a movie
-3. Add a movie
-4. Get movie recommendations
-5. Print movie review file
-6. Quit
-**
+**1. Get reviews for a movie**
+**2. Review a movie**
+**3. Add a movie**
+**4. Get movie recommendations**
+**5. Print movie review file**
+**6. Quit**
 ```
 
 The program stores an array of movies and allows the user to add movies to the list, add reviews to

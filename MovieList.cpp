@@ -76,12 +76,12 @@ void MovieList::readFile(MovieList &ml){
     else{
         attributes = 7;
     }
-    rowChk.open(inFileName.c_str());                    //Read file to determine movieCount
+    rowChk.open(inFileName.c_str());        //Read file to determine movieCount
     if(rowChk.is_open()){
-        for(int i =0; i < 3; i++){                          //Skip first three lines (no movies on these lines)
+        for(int i =0; i < 3; i++){          //Skip first three lines (no movies on these lines)
             rowChk.ignore(100, '\r');
         }
-        while(getline(rowChk, row, '\r')){          //Count movies in the file
+        while(getline(rowChk, row, '\r')){  //Count movies in the file
             ml.movieCount++;
         }
         rowChk.close();
@@ -89,12 +89,14 @@ void MovieList::readFile(MovieList &ml){
     else{
         cout << "Unable to open file \"" << inFileName << "\"";
     }
-  inStr.open(inFileName.c_str());                       //Populate movieArray with Movie objects, using info from file
+  inStr.open(inFileName.c_str());           //Populate movieArray with Movie objects
   if(inStr.is_open()){
-        for(int i = 0; i < 3; i++){                         //Skip first three lines (no movies on these lines)
+        for(int i = 0; i < 3; i++){         //Skip first three lines (no movies on these lines)
             inStr.ignore(100, '\r');
         }
-        while(rowIndex < movieCount){                       //Read in each csv (each line is a movie) and populate MovieList array with Movies
+        
+        //Read in each csv (each line is a movie) and populate MovieList array with Movies
+        while(rowIndex < movieCount){       
             for(int i = 0; i < attributes; i++){
                 if(i < 5){
                     getline(inStr, line, ',');
@@ -109,25 +111,30 @@ void MovieList::readFile(MovieList &ml){
                             ml.nextID = id + 1;
                         }
                         break;
+
                     case 1:
                         name = line;
                         movieArray[rowIndex].setTitle(movieArray[rowIndex], name);
                         break;
+
                     case 2:
                         ss << line;
                         ss >> year;
                         movieArray[rowIndex].setYear(movieArray[rowIndex], year);
                         break;
+
                     case 3:
                         ss << line;
                         ss >> rev1;
                         movieArray[rowIndex].setReview(movieArray[rowIndex], 1, rev1);
                         break;
+
                     case 4:
                         ss << line;
                         ss >> rev2;
                         movieArray[rowIndex].setReview(movieArray[rowIndex], 2, rev2);
                         break;
+
                     case 5:
                         if(inFileName == "movies.csv"){
                             getline(inStr, line, '\r');
@@ -139,6 +146,7 @@ void MovieList::readFile(MovieList &ml){
                         ss >> rev3;
                         movieArray[rowIndex].setReview(movieArray[rowIndex], 3, rev3);
                         break;
+
                     case 6:
                         getline(inStr, line, '\r');
                         ss << line;
@@ -148,6 +156,7 @@ void MovieList::readFile(MovieList &ml){
                         }
                         movieArray[rowIndex].setReview(movieArray[rowIndex], 4, rev4);
                         break;
+
                 }
             }
             rowIndex++;
@@ -172,10 +181,13 @@ void MovieList::writeFile(MovieList &ml){
   if(outStr.is_open()){
         outStr << "Critic Ratings for years 2000 to 2009 processed,,,,,\r,,,,,\rFilm ID,Film Title,Year (NA),Metacritic,Rotten Tomatoes/4,VideoHound Score (0-4)\r";
         for(int i = 0; i < ml.movieCount; i++){
-            outStr << ml.movieArray[i].getID() << "," << ml.movieArray[i].getTitle()
-                         << "," << ml.movieArray[i].getYear() << "," << ml.movieArray[i].getReview(1)
-                         << "," << ml.movieArray[i].getReview(2) << "," << ml.movieArray[i].getReview(3)
-                         << "," << ml.movieArray[i].getReview(4) << "\r";
+            outStr  << ml.movieArray[i].getID()         << ","
+                    << ml.movieArray[i].getTitle()      << ","
+                    << ml.movieArray[i].getYear()       << ","
+                    << ml.movieArray[i].getReview(1)    << ","
+                    << ml.movieArray[i].getReview(2)    << ","
+                    << ml.movieArray[i].getReview(3)    << ","
+                    << ml.movieArray[i].getReview(4)    << "\r";
         }
     }
     else{

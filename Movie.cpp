@@ -19,9 +19,9 @@ Movie::Movie(string name, int year){
     releaseYear = year;
     movieID = -1;
     cr1 = -1.0;
-  cr2 = -1.0;
-  cr3 = -1.0;
-  ur = -1.0;
+    cr2 = -1.0;
+    cr3 = -1.0;
+    ur = -1.0;
 }
 
 void Movie::setTitle(Movie &mv, string newTitle){
@@ -39,13 +39,13 @@ void Movie::setID(Movie &mv, int newID){
 void Movie::setReview(Movie &mv, int whichReview, float rating){
     switch(whichReview){
         case 1:     mv.cr1 = rating;
-                            break;
+                    break;
         case 2:     mv.cr2 = rating;
-                            break;
+                    break;
         case 3:     mv.cr3 = rating;
-                            break;
+                    break;
         case 4:     mv.ur = rating;
-                            break;
+                    break;
         default:    break;
     }
 }
@@ -65,15 +65,15 @@ const int Movie::getID() const{
 const float Movie::getReview(int whichReview) const{
     switch(whichReview){
         case 1:     return cr1;
-                            break;
+                    break;
         case 2:     return cr2;
-                            break;
+                    break;
         case 3:     return cr3;
-                            break;
+                    break;
         case 4:     return ur;
-                            break;
+                    break;
         default:    return -1.0;
-                            break;
+                    break;
     }
 }
 
@@ -85,10 +85,17 @@ float Movie::compareToCritic(int critic){
 // Overload Output stream
 ostream &operator<<(ostream &out, Movie &mv){
     out << setw(2) << fixed << setprecision(1);
-    return out << "\nID:    " << mv.movieID << "\nTitle: " << mv.title << "\nYear:  " << mv.releaseYear
-                         << "\n__________________________________________________________________________"
-                         << "\n\tReviews based on a 0-4 scale (0 is terrible, 4 is terrific)"
-                         << "\n__________________________________________________________________________"
-                         << "\n     Metacritic\t    Rotten Tomatoes\t VideoHound\t  User Rating"
-                         << "\n\t" << mv.cr1 << "\t\t  " << mv.cr2 << "\t\t    " << mv.cr3 << "\t\t     " << mv.ur << "\n\n" << endl;
+    return out  << "\nID:    " << mv.movieID
+                << "\nTitle: " << mv.title
+                << "\nYear:  " << mv.releaseYear
+                << "\n__________________________________________________________________________"
+                << "\n\tReviews based on a 0-4 scale (0 is terrible, 4 is terrific)"
+                << "\n__________________________________________________________________________"
+                << "\n     Metacritic\t    Rotten Tomatoes\t VideoHound\t  User Rating"
+                << "\n\t"
+                << mv.cr1 << "\t\t  "
+                << mv.cr2 << "\t\t    "
+                << mv.cr3 << "\t\t     "
+                << mv.ur << "\n\n"
+                << endl;
 }

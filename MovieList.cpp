@@ -13,7 +13,19 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
-using namespace std;
+
+//using namespace std;
+using std::string;
+using std::ifstream;
+using std::ofstream;
+using std::stringstream;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::setw;
+using std::fixed;
+using std::setprecision;
+using std::min;
 
 
 //Constructor for MovieList
@@ -21,7 +33,7 @@ MovieList::MovieList(){
     movieCount = 0;
     userReviewCount = 0;
     nextID = 0;
-    movieArray[maxMovies];
+    //movieArray[maxMovies];
 }
 
 const Movie MovieList::getMovie(Movie &mv, int index) const{
@@ -252,6 +264,7 @@ void MovieList::recommendMovies(MovieList &ml, int whichCrit){
 
 int MovieList::distCalc(){
     float sum1, sum2, sum3, dist1, dist2, dist3, nearestCrit;
+    int closest;
     
     for(int i = 0; i < movieCount; i++){
         if(movieArray[i].getReview(4) != -1){
@@ -264,7 +277,12 @@ int MovieList::distCalc(){
     dist2 = sqrt(sum2);
     dist3 = sqrt(sum3);
     nearestCrit = min(min(dist1, dist2), dist3);
-    if(nearestCrit == dist1) return 1;
-    else if(nearestCrit == dist2) return 2;
-    else if(nearestCrit == dist3) return 3;
+    //if(nearestCrit == dist1) return 1;
+    //else if(nearestCrit == dist2) return 2;
+    //else if(nearestCrit == dist3) return 3;
+    if(nearestCrit == dist1) closest =  1;
+    else if(nearestCrit == dist2) closest =  2;
+    else if(nearestCrit == dist3) closest =  3;
+
+    return closest;
 }

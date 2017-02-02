@@ -6,7 +6,7 @@
 
 
 #include "Movie.h"
-#include <iostream>
+//#include <iostream>
 using namespace std;
 
 
@@ -14,8 +14,8 @@ int main(void){
     Movie mov;
     MovieList ml;
     ml.readFile(ml);
-    int maxMov = ml.getMaxMovies();
-    int count = ml.getMovieCount();
+    //int maxMov = ml.getMaxMovies();
+    //int count = ml.getMovieCount();
     int relYear, nearCrit;
     float userRev;
     string movieName;

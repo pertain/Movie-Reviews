@@ -279,28 +279,29 @@
 
 
 #include <iostream>
-using namespace std;
+//using namespace std;
 
 
 class Movie{
 
 private:
-  string title;
+  std::string title;
   int releaseYear, movieID;
   float cr1, cr2, cr3, ur;
 
 public:
-  Movie(string = "", int year = -1);
-  void setTitle(Movie &, string);
+  Movie(std::string = "", int year = -1);
+  void setTitle(Movie &, std::string);
   void setYear(Movie &, int);
   void setID(Movie &, int);
   void setReview(Movie &, int, float);
-  const string getTitle() const;
+  const std::string getTitle() const;
   const int getYear() const;
   const int getID() const;
   const float getReview(int) const;
   float compareToCritic(int);
-  friend ostream &operator<<(ostream &, Movie &);
+  //friend ostream &operator<<(ostream &, Movie &);
+  friend std::ostream &operator<<(std::ostream &, Movie &);
 };
 
 class MovieList{
@@ -318,11 +319,11 @@ public:
     const int getMaxMovies() const;
     const int getMovieCount() const;
     const int getReviewCount() const;
-    const int findMovie(const MovieList &, string) const;
+    const int findMovie(const MovieList &, std::string) const;
     void incReviewCount(MovieList &);
     void readFile(MovieList &);
     void writeFile(MovieList &);
-    void addMovie(MovieList &, string, int);
+    void addMovie(MovieList &, std::string, int);
     void updateMovie(MovieList &, Movie &, int);
     void recommendMovies(MovieList &, int);
     int distCalc();

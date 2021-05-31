@@ -6,6 +6,7 @@
 
 
 #include "Movie.h"
+#include "MovieList.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,26 +15,13 @@
 #include <cmath>
 #include <algorithm>
 
-//using namespace std;
-using std::string;
-using std::ifstream;
-using std::ofstream;
-using std::stringstream;
-using std::cout;
-using std::cin;
-using std::endl;
-using std::setw;
-using std::fixed;
-using std::setprecision;
-using std::min;
-
 
 //Constructor for MovieList
 MovieList::MovieList(){
     movieCount = 0;
     userReviewCount = 0;
     nextID = 0;
-    //movieArray[maxMovies];
+    //movieArray[MAX_MOVIES];
 }
 
 const Movie MovieList::getMovie(Movie &mv, int index) const{
@@ -41,7 +29,7 @@ const Movie MovieList::getMovie(Movie &mv, int index) const{
 }
 
 const int MovieList::getMaxMovies() const{
-    return maxMovies;
+    return MAX_MOVIES;
 }
 
 const int MovieList::getMovieCount() const{
@@ -52,9 +40,9 @@ const int MovieList::getReviewCount() const{
     return userReviewCount;
 }
 
-const int MovieList::findMovie(const MovieList &ml, string nm) const{
-    string name = nm;
-    string str2;
+const int MovieList::findMovie(const MovieList &ml, std::string nm) const{
+    std::string name = nm;
+    std::string str2;
     
     for(int i = 0; i < movieCount; i++){
         str2 = ml.movieArray[i].getTitle().substr(0, nm.length());
@@ -70,17 +58,17 @@ void MovieList::incReviewCount(MovieList &ml){
 }
 
 void MovieList::readFile(MovieList &ml){    
-    string line, row, name, inFileName;
-    ifstream rowChk, inStr;
-    stringstream ss;
+    std::string line, row, name, inFileName;
+    std::ifstream rowChk, inStr;
+    std::stringstream ss;
     int id, year, attributes;
     int rowIndex = 0;
     float rev1, rev2, rev3, rev4;
     
-    cout << "\nEnter the name of the .csv file" << endl;
-    cout << "(example: movies.csv)" << endl;
-    cout << "Name: ";
-    cin >> inFileName;
+    std::cout << "\nEnter the name of the .csv file" << std::endl;
+    std::cout << "(example: movies.csv)" << std::endl;
+    std::cout << "Name: ";
+    std::cin >> inFileName;
     
     if(inFileName == "movies.csv"){
         attributes = 6;
@@ -99,7 +87,7 @@ void MovieList::readFile(MovieList &ml){
         rowChk.close();
     }
     else{
-        cout << "Unable to open file \"" << inFileName << "\"";
+        std::cout << "Unable to open file \"" << inFileName << "\"";
     }
   inStr.open(inFileName.c_str());           //Populate movieArray with Movie objects
   if(inStr.is_open()){
@@ -176,18 +164,18 @@ void MovieList::readFile(MovieList &ml){
     inStr.close();
   }
   else{
-        cout << "Unable to open file \"" << inFileName << "\"";
+      std::cout << "Unable to open file \"" << inFileName << "\"";
     }
 }
 
 void MovieList::writeFile(MovieList &ml){
-    string outFileName;
-    ofstream outStr;
+    std::string outFileName;
+    std::ofstream outStr;
     
-    cout << "\nEnter a name for the output file" << endl;
-    cout << "(do not use \"movies.csv\", or your personal reviews will be lost)" << endl;
-    cout << "Name: ";
-    cin >> outFileName;
+    std::cout << "\nEnter a name for the output file" << std::endl;
+    std::cout << "(do not use \"movies.csv\", or your personal reviews will be lost)" << std::endl;
+    std::cout << "Name: ";
+    std::cin >> outFileName;
     
     outStr.open(outFileName.c_str());
   if(outStr.is_open()){
@@ -203,26 +191,26 @@ void MovieList::writeFile(MovieList &ml){
         }
     }
     else{
-        cout << "Unable to open file \"" << outFileName << "\"";
+        std::cout << "Unable to open file \"" << outFileName << "\"";
     }
 }
 
-void MovieList::addMovie(MovieList &ml, string name, int year){
-    if(ml.movieCount < ml.maxMovies){
+void MovieList::addMovie(MovieList &ml, std::string name, int year){
+    if(ml.movieCount < ml.MAX_MOVIES){
         if(findMovie(ml, name) == -1){
             Movie mv = Movie(name, year);
             mv.setID(mv, ml.nextID);
             ml.nextID++;
             updateMovie(ml, mv, ml.movieCount);
-            cout << "\n\"" << name << "\" was added to the movie list\n" << endl;
+            std::cout << "\n\"" << name << "\" was added to the movie list\n" << std::endl;
             ml.movieCount++;
         }
         else{
-            cout << "\n\"" << name << "\" was not added. It is already in the movie list\n" << endl;
+            std::cout << "\n\"" << name << "\" was not added. It is already in the movie list\n" << std::endl;
         }
     }
     else{
-        cout << "\nThe movie list is full. New movies cannot be added." << endl;
+        std::cout << "\nThe movie list is full. New movies cannot be added." << std::endl;
     }
 }
 
@@ -232,7 +220,7 @@ void MovieList::updateMovie(MovieList &ml, Movie &mv, int i){
 
 void MovieList::recommendMovies(MovieList &ml, int whichCrit){
     int crit = whichCrit;
-    string critic;
+    std::string critic;
     Movie mov;
     switch(whichCrit){
         case 1:
@@ -247,17 +235,17 @@ void MovieList::recommendMovies(MovieList &ml, int whichCrit){
         default:
             break;
     }
-    cout << "\nYour reviews are closest to \"" << critic << "\"" << endl;
-    cout << "The following is your list of recommended movies" << endl;
-    cout << "along with the review scores from " << critic << "\n\n" << endl;
-    cout << "  [Score] \t[Movie Title]" << endl;
-    cout << "_______________________________________________________\n" << endl;
+    std::cout << "\nYour reviews are closest to \"" << critic << "\"" << std::endl;
+    std::cout << "The following is your list of recommended movies" << std::endl;
+    std::cout << "along with the review scores from " << critic << "\n\n" << std::endl;
+    std::cout << "  [Score] \t[Movie Title]" << std::endl;
+    std::cout << "_______________________________________________________\n" << std::endl;
     for(int i = 0; i < movieCount; i++){
         mov = ml.movieArray[i];
         if(mov.getReview(crit) >= 3){
-            cout << "    ";
-            cout << setw(2) << fixed << setprecision(1) << mov.getReview(crit);
-            cout << " \t" << mov.getTitle() << endl;
+            std::cout << "    ";
+            std::cout << std::setw(2) << std::fixed << std::setprecision(1) << mov.getReview(crit);
+            std::cout << " \t" << mov.getTitle() << std::endl;
         }
     }
 }
@@ -276,10 +264,7 @@ int MovieList::distCalc(){
     dist1 = sqrt(sum1);
     dist2 = sqrt(sum2);
     dist3 = sqrt(sum3);
-    nearestCrit = min(min(dist1, dist2), dist3);
-    //if(nearestCrit == dist1) return 1;
-    //else if(nearestCrit == dist2) return 2;
-    //else if(nearestCrit == dist3) return 3;
+    nearestCrit = std::min(std::min(dist1, dist2), dist3);
     if(nearestCrit == dist1) closest =  1;
     else if(nearestCrit == dist2) closest =  2;
     else if(nearestCrit == dist3) closest =  3;

@@ -6,91 +6,88 @@
 
 
 #include "Movie.h"
-//#include <iostream>
-using namespace std;
+#include "MovieList.h"
 
 
 int main(void){
     Movie mov;
     MovieList ml;
     ml.readFile(ml);
-    //int maxMov = ml.getMaxMovies();
-    //int count = ml.getMovieCount();
     int relYear, nearCrit;
     float userRev;
-    string movieName;
+    std::string movieName;
     int movIndex;
     int userChoice = 0;
 
     //  User interface
-    cout << "\n\nWelcome to MovieReview!" << endl;
+    std::cout << "\n\nWelcome to MovieReview!" << std::endl;
     while(userChoice != 6){
-        cout << "\n\nPlease select an option\n" << endl;
-        cout << "1. Get reviews for a movie" << endl;
-        cout << "2. Review a movie" << endl;
-        cout << "3. Add a movie" << endl;
-        cout << "4. Get movie recommendations" << endl;
-        cout << "5. Print movie review file" << endl;
-        cout << "6. Quit\n" << endl;
-        cout << "Selection: ";
+        std::cout << "\n\nPlease select an option\n" << std::endl;
+        std::cout << "1. Get reviews for a movie" << std::endl;
+        std::cout << "2. Review a movie" << std::endl;
+        std::cout << "3. Add a movie" << std::endl;
+        std::cout << "4. Get movie recommendations" << std::endl;
+        std::cout << "5. Print movie review file" << std::endl;
+        std::cout << "6. Quit\n" << std::endl;
+        std::cout << "Selection: ";
         int tempIn = 0;
-        cin >> tempIn;
-        if(!cin){
-            cin.clear();
-            cin.ignore();
-            cout << "\nNot a valid selection\n" << endl;
+        std::cin >> tempIn;
+        if(!std::cin){
+            std::cin.clear();
+            std::cin.ignore();
+            std::cout << "\nNot a valid selection\n" << std::endl;
         }
         else{
             userChoice = tempIn;
         }
         switch(userChoice){
             case 1:
-                while(getline(cin, movieName) && userChoice == 1){
-                    cout << "\nEnter a movie name (Capitalize first letter of each word)" << endl;
-                    cout << "Title: ";
-                    getline(cin, movieName);
+                while(getline(std::cin, movieName) && userChoice == 1){
+                    std::cout << "\nEnter a movie name (Capitalize first letter of each word)" << std::endl;
+                    std::cout << "Title: ";
+                    getline(std::cin, movieName);
                     movIndex = ml.findMovie(ml, movieName);
                     if(movIndex != -1){
                         mov = ml.getMovie(mov, movIndex);
-                        cout << "\n" << mov;
+                        std::cout << "\n" << mov;
                     }
                     else{
-                        cout << movieName << " is not a valid selection" << endl;
+                        std::cout << movieName << " is not a valid selection" << std::endl;
                     }
                     userChoice = 0;
-                    cout << "\nPress \"ENTER\" to continue" << endl;
+                    std::cout << "\nPress \"ENTER\" to continue" << std::endl;
                 }
                 break;
             case 2:
-                while(getline(cin, movieName) && userChoice == 2){
-                    cout << "\nEnter a movie name (Capitalize first letter of each word)" << endl;
-                    cout << "Title: ";
-                    getline(cin, movieName);
+                while(getline(std::cin, movieName) && userChoice == 2){
+                    std::cout << "\nEnter a movie name (Capitalize first letter of each word)" << std::endl;
+                    std::cout << "Title: ";
+                    getline(std::cin, movieName);
                     movIndex = ml.findMovie(ml, movieName);
                     if(movIndex != -1){
                         mov = ml.getMovie(mov, movIndex);
-                        cout << "\nEnter your review (low 0-4 high): ";
-                        cin >> userRev;
+                        std::cout << "\nEnter your review (low 0-4 high): ";
+                        std::cin >> userRev;
                         mov.setReview(mov, 4, userRev);
                         ml.updateMovie(ml, mov, movIndex);
                         ml.incReviewCount(ml);
-                        cout << "\n" << mov;
+                        std::cout << "\n" << mov;
                     }
                     else{
-                        cout << "\n" << movieName << " is not a valid selection" << endl;
-                        cout << "\nPress \"ENTER\" to continue" << endl;
+                        std::cout << "\n" << movieName << " is not a valid selection" << std::endl;
+                        std::cout << "\nPress \"ENTER\" to continue" << std::endl;
                     }
                     userChoice = 0;
                 }
                 break;
             case 3:
-                while(getline(cin, movieName) && userChoice == 3){
-                    cout << "\nEnter a movie name (Capitalize first letter of each word)" << endl;
-                    cout << "Title: ";
-                    getline(cin, movieName);
-                    cout << "\nWhat year was \"" << movieName << "\" released? " << endl;
-                    cout << "Year: ";
-                    cin >> relYear;
+                while(getline(std::cin, movieName) && userChoice == 3){
+                    std::cout << "\nEnter a movie name (Capitalize first letter of each word)" << std::endl;
+                    std::cout << "Title: ";
+                    getline(std::cin, movieName);
+                    std::cout << "\nWhat year was \"" << movieName << "\" released? " << std::endl;
+                    std::cout << "Year: ";
+                    std::cin >> relYear;
                     ml.addMovie(ml, movieName, relYear);    
                     userChoice = 0;
                 }
@@ -101,15 +98,15 @@ int main(void){
                         ml.recommendMovies(ml, nearCrit);
                     }
                     else{
-                        cout << "\nYou must add at least 5 reviews to calculate movie recommendations." << endl;
-                        cout << "Current review count: " << ml.getReviewCount() << endl;
+                        std::cout << "\nYou must add at least 5 reviews to calculate movie recommendations." << std::endl;
+                        std::cout << "Current review count: " << ml.getReviewCount() << std::endl;
                     }
                 break;
             case 5:
                 ml.writeFile(ml);
                 break;
             case 6:
-                cout << "\nGoodbye!\n" << endl;
+                std::cout << "\nGoodbye!\n" << std::endl;
             default:
                 break;
         }

@@ -6,15 +6,13 @@
 
 
 #include "Movie.h"
-//#include <iostream>
 #include <string>
 #include <iomanip>
 #include <cmath>
-using namespace std;
 
 
 //Parameterized constructor for Movie
-Movie::Movie(string name, int year){
+Movie::Movie(std::string name, int year){
     title = name;
     releaseYear = year;
     movieID = -1;
@@ -24,7 +22,7 @@ Movie::Movie(string name, int year){
     ur = -1.0;
 }
 
-void Movie::setTitle(Movie &mv, string newTitle){
+void Movie::setTitle(Movie &mv, std::string newTitle){
     mv.title = newTitle;
 }
 
@@ -50,7 +48,7 @@ void Movie::setReview(Movie &mv, int whichReview, float rating){
     }
 }
 
-const string Movie::getTitle() const{
+const std::string Movie::getTitle() const{
     return title;
 }
 
@@ -83,8 +81,8 @@ float Movie::compareToCritic(int critic){
 }
 
 // Overload Output stream
-ostream &operator<<(ostream &out, Movie &mv){
-    out << setw(2) << fixed << setprecision(1);
+std::ostream &operator<<(std::ostream &out, Movie &mv){
+    out << std::setw(2) << std::fixed << std::setprecision(1);
     return out  << "\nID:    " << mv.movieID
                 << "\nTitle: " << mv.title
                 << "\nYear:  " << mv.releaseYear
@@ -97,5 +95,5 @@ ostream &operator<<(ostream &out, Movie &mv){
                 << mv.cr2 << "\t\t    "
                 << mv.cr3 << "\t\t     "
                 << mv.ur << "\n\n"
-                << endl;
+                << std::endl;
 }

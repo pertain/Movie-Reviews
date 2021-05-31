@@ -1,18 +1,10 @@
-#################
-# Details Portion
-#################
 
 CC = g++
-#FLAG = -Wall -g
 FLAG = -c -Wall
 SRC = Movie.cpp MovieList.cpp MovieReviews.cpp
 OBJ = $(SRC:.cpp=.o)
 BIN = movieReviews
 
-
-#################
-# Generic Portion
-#################
 
 .PHONY: depend clean
 
